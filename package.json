@@ -1,0 +1,24 @@
+{
+  "name": "tractive",
+  "version": "0.0.1",
+  "description": "A Tractive API wrapper, using tractive.com services.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FAXES/tractive.git"
+  },
+  "keywords": [
+    "tractive",
+    "tracking",
+    "GPS"
+  ],
+  "author": "Weblutions",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FAXES/tractive/issues"
+  },
+  "homepage": "https://github.com/FAXES/tractive#readme"
+}
