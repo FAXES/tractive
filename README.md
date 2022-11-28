@@ -11,7 +11,7 @@ This is a simple wrapper using Tractive to have an API of sorts to make multiple
 const tractive = require('tractive');
 
 /*
-Check if Tractive has authenticated:
+Connect to Tractive services:
 Return true if successful and connected or returns false is not connected.
 */
 tractive.connect('TRACTIVE_ACCOUNT_EMAIL', 'TRACTIVE_ACCOUNT_PASSWORD')
