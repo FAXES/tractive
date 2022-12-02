@@ -11,7 +11,7 @@ This is a simple wrapper using Tractive to have an API of sorts to make multiple
 const tractive = require('tractive');
 
 /*
-Connect to Tractive services:
+Check if Tractive has authenticated:
 Return true if successful and connected or returns false is not connected.
 */
 tractive.connect('TRACTIVE_ACCOUNT_EMAIL', 'TRACTIVE_ACCOUNT_PASSWORD')
@@ -37,7 +37,7 @@ tractive.getAllTrackers().then(function(trackers) {
 /*
 Gets a defined tracker and returns its latest report data along with address.
 */
-tractive.getTrackerLocation().then(function(tracker) {
+tractive.getTrackerLocation("ABCDEFGH").then(function(tracker) {
     /*
     tracker = {
         time: 1669530259,

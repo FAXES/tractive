@@ -1,5 +1,8 @@
 const https = require("https");
 const TractiveClient = "625e533dc3c3b41c28a669f0";
+const tAccount = require('./src/account');
+const tPet = require('./src/pet');
+const tTracker = require('./src/tracker');
 accountDetails = {
     email: "",
     password: ""
@@ -94,13 +97,18 @@ async function getGeofence(fenceID) {
     });
 }
 
-async function go() {
-    await connect('f@faxes.zone', 'Jmannens2106')
-    require('./src/tracker');
-}
-go();
-
 module.exports = {
     connect: connect,
     isAuthenticated: isAuthenticated,
+    getAccountInfo: tAccount.getAccountInfo,
+    getAccountSubscriptions: tAccount.getAccountSubscriptions,
+    getAccountSubscription: tAccount.getAccountSubscription,
+    getAccountShares: tAccount.getAccountShares,
+    getPets: tPet.getPets,
+    getPet: tPet.getPet,
+    getAllTrackers: tTracker.getAllTrackers,
+    getTracker: tTracker.getTracker,
+    getTrackerHistory: tTracker.getTrackerHistory,
+    getTrackerLocation: tTracker.getTrackerLocation,
+    getTrackerHardware: tTracker.getTrackerHardware
 }

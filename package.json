@@ -1,6 +1,6 @@
 {
   "name": "tractive",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "description": "A Tractive API wrapper, using tractive.com services.",
   "main": "index.js",
   "scripts": {
