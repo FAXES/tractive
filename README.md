@@ -96,4 +96,4 @@ Created by [Weblutions](https://weblutions.com)
 
 **Disclaimer**
 *This personal project is maintained in spare time and has no business goal. Terms and logos related to Tractive are respective of their holders. This is not maintained or created by Tractive.*
-<small>However, Tractive you're welcome to have the package name if you every have an official API 💖</small>
+<small>However, Tractive you're welcome to have the package name if you ever have an official API 💖</small>
