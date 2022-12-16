@@ -1,4 +1,4 @@
-This is a simple wrapper using Tractive to have an API of sorts to make multiple types of requests to Tractive and recieve data on your account and pet.
+This is a simple Tractive GPS tracker API wrapper to make multiple types of requests to Tractive and recieve data on your account and pet(s).
 
 ### Contents
 - [Getting Started](#Getting-Started)
