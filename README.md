@@ -65,6 +65,20 @@ tractive.getTrackerLocation("ABCDEFGH").then(function(tracker) {
     }
     */
 });
+
+// Turn on live tracking
+tractive.liveOn("ABCDEFGH").then(function(tracker) {
+    /*
+    tracker = {
+        active: false,
+        started_at: null,
+        timeout: 300,
+        remaining: 0,
+        pending: true,
+        reconnecting: false
+        }
+    */
+});
 ```
 
 ### All Functions
@@ -83,6 +97,13 @@ getTracker(trackerID)
 getTrackerHistory(trackerID, from, to) // 'from' and 'to' are Date() functions or timestamps (in ms).
 getTrackerLocation(trackerID) // Get the latest report that the tracker uploaded.
 getTrackerHardware(trackerID) // Get the latest hardware report that was sent. This includes battery levels.
+
+liveOn(trackerID) // Turns on live tracking
+liveOff(trackerID) // Turns off live tracking
+LEDOn(trackerID) // Turns on LED light
+LEDOff(trackerID) // Turns off LED light
+buzzerOn(trackerID) // Turns on buzzer sound
+buzzerOff(trackerID) // Turns off buzzer sound
 ```
 
 ---

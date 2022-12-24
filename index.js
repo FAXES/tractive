@@ -3,6 +3,7 @@ const TractiveClient = "625e533dc3c3b41c28a669f0";
 const tAccount = require('./src/account');
 const tPet = require('./src/pet');
 const tTracker = require('./src/tracker');
+const tCommands = require('./src/commands');
 accountDetails = {
     email: "",
     password: ""
@@ -110,5 +111,11 @@ module.exports = {
     getTracker: tTracker.getTracker,
     getTrackerHistory: tTracker.getTrackerHistory,
     getTrackerLocation: tTracker.getTrackerLocation,
-    getTrackerHardware: tTracker.getTrackerHardware
+    getTrackerHardware: tTracker.getTrackerHardware,
+    liveOn: tCommands.liveOn,
+    liveOff: tCommands.liveOff,
+    LEDOn: tCommands.LEDOn,
+    LEDOff: tCommands.LEDOff,
+    buzzerOn: tCommands.BuzzerOn,
+    buzzerOff: tCommands.BuzzerOff
 }
