@@ -1,5 +1,4 @@
 const https = require("https");
-const TractiveClient = "625e533dc3c3b41c28a669f0";
 
 /**
  * Get a pet and it's data, includes attached tracker, type of animal, and other pet details.
