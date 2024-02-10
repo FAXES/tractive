@@ -1,5 +1,4 @@
 const https = require("https");
-const TractiveClient = "625e533dc3c3b41c28a669f0";
 
 /**
  * Get an array of all trackers on the account
