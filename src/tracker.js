@@ -11,7 +11,8 @@ async function getAllTrackers() {
         options.path = `/4/user/${accountDetails.uid}/trackers`;
         const req = https.request(options, function (res) {
             res.on('data', function(d) {
-                process.stdout.write(d + '\n\n');
+                let trackers = JSON.parse(d);
+                resolve(trackers)
             });
         });
         req.end();
@@ -127,4 +128,5 @@ module.exports = {
     getTrackerHistory: getTrackerHistory,
     getTrackerLocation: getTrackerLocation,
     getTrackerHardware: getTrackerHardware
+
 }
