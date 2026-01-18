@@ -1,4 +1,3 @@
-import https from 'https';
 import * as tAccount from './src/account.js';
 import * as tPet from './src/pet.js';
 import * as tTracker from './src/tracker.js';
@@ -28,40 +27,35 @@ globalThis.isAuthenticated = function() {
 }
 
 async function authenticate() {
-    return new Promise(function(resolve, reject) {/4/
-        const options = {
-            "method": "POST",
-            "hostname": "graph.tractive.com",
-            "path": `/4/auth/token?grant_type=tractive&platform_email=${encodeURIComponent(accountDetails.email)}&platform_token=${encodeURIComponent(accountDetails.password)}`,
-            "headers": {
-                'X-Tractive-Client': TractiveClient,
-                'Content-Type': "application/json"
+    const options = {
+        method: "POST",
+        headers: {
+            'X-Tractive-Client': TractiveClient,
+            'Content-Type': "application/json"
+        }
+    };
+
+    const url = `https://graph.tractive.com/4/auth/token?grant_type=tractive&platform_email=${encodeURIComponent(accountDetails.email)}&platform_token=${encodeURIComponent(accountDetails.password)}`;
+
+    try {
+        const res = await fetch(url, options);
+        const data = await res.json();
+        accountDetails.token = data.access_token;
+        accountDetails.uid = data.user_id;
+        gloOpts = {
+            method: "GET",
+            hostname: "graph.tractive.com",
+            path: ``,
+            headers: {
+                "X-Tractive-Client": TractiveClient,
+                "Authorization": `Bearer ${accountDetails.token}`,
+                "content-type": "application/json"
             }
         };
-        const req = https.request(options, function (res) {
-            res.on('data', function(d) {
-                // process.stdout.write(d + '\n\n');
-                accountDetails.token = JSON.parse(d).access_token;
-                accountDetails.uid = JSON.parse(d).user_id;
-                gloOpts = {
-                    method: "GET",
-                    hostname: "graph.tractive.com",
-                    path: ``,
-                    headers: {
-                        "X-Tractive-Client": TractiveClient,
-                        "Authorization": `Bearer ${accountDetails.token}`,
-                        "content-type": "application/json"
-                    }
-                };
-                resolve(true);
-            });
-            res.on('error', function(err) {
-                resolve(false);
-            });
-        });
-        req.end();
-    });
-    return promise;
+        return true;
+    } catch (err) {
+        return false;
+    }
 }
 
 async function connect(email, password) {
@@ -73,32 +67,24 @@ async function connect(email, password) {
 
 async function getTrackerGeofences(trackerID) {
     if(!isAuthenticated()) return console.log('Not authenticated.');
-    return new Promise(function(resolve, reject) {
-        let options = gloOpts;
-        options.path = `/4/tracker/${trackerID}/geofences`;
-        const req = https.request(options, function (res) {
-            res.on('data', function(d) {
-                let data = JSON.parse(d);
-                resolve(data)
-            });
-        });
-        req.end();
+    const url = `https://graph.tractive.com/4/tracker/${trackerID}/geofences`;
+    const res = await fetch(url, {
+        method: gloOpts.method,
+        headers: gloOpts.headers
     });
+    const data = await res.json();
+    return data;
 }
 
 async function getGeofence(fenceID) {
     if(!isAuthenticated()) return console.log('Not authenticated.');
-    return new Promise(function(resolve, reject) {
-        let options = gloOpts;
-        options.path = `/4/geofence/${fenceID}`;
-        const req = https.request(options, function (res) {
-            res.on('data', function(d) {
-                let data = JSON.parse(d);
-                resolve(data)
-            });
-        });
-        req.end();
+    const url = `https://graph.tractive.com/4/geofence/${fenceID}`;
+    const res = await fetch(url, {
+        method: gloOpts.method,
+        headers: gloOpts.headers
     });
+    const data = await res.json();
+    return data;
 }
 
 export default {

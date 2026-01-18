@@ -1,5 +1,3 @@
-import https from 'https';
-
 /**
  * Get a pet and it's data, includes attached tracker, type of animal, and other pet details.
  * @param {String} petID 
@@ -7,26 +5,15 @@ import https from 'https';
  */
 export async function getPet(petID) {
     if(!isAuthenticated()) return console.log('Not authenticated.');
-    return new Promise(function(resolve, reject) {
-        let options = gloOpts;
-        options.path = `/4/trackable_object/${petID}`;
-        const req = https.request(options, function (res) {
-            res.setEncoding('utf8');
-            let rawData = '';
-            res.on('data', (chunk) => { rawData += chunk; });
-            res.on('end', () => {
-                try {
-                    const parsedData = JSON.parse(rawData);
-                    parsedData.details.profile_picture_link = `https://graph.tractive.com/4/media/resource/${parsedData.details.profile_picture_id}.jpg`;
-                    parsedData.details.cover_picture_link = `https://graph.tractive.com/4/media/resource/${parsedData.details.cover_picture_id}.jpg`;
-                    resolve(parsedData);
-                } catch (e) {
-                    console.error(e.message);
-                }
-            });
-        });
-        req.end();
+    const url = `https://graph.tractive.com/4/trackable_object/${petID}`;
+    const res = await fetch(url, {
+        method: gloOpts.method,
+        headers: gloOpts.headers
     });
+    const parsedData = await res.json();
+    parsedData.details.profile_picture_link = `https://graph.tractive.com/4/media/resource/${parsedData.details.profile_picture_id}.jpg`;
+    parsedData.details.cover_picture_link = `https://graph.tractive.com/4/media/resource/${parsedData.details.cover_picture_id}.jpg`;
+    return parsedData;
 }
 
 /**
@@ -35,22 +22,11 @@ export async function getPet(petID) {
  */
 export async function getPets() {
     if(!isAuthenticated()) return console.log('Not authenticated.');
-    return new Promise(function(resolve, reject) {
-        let options = gloOpts;
-        options.path = `/4/user/${accountDetails.uid}/trackable_objects`;
-        const req = https.request(options, function (res) {
-            res.setEncoding('utf8');
-            let rawData = '';
-            res.on('data', (chunk) => { rawData += chunk; });
-            res.on('end', () => {
-                try {
-                    // const parsedData = JSON.parse(rawData);
-                    resolve(rawData);
-                } catch (e) {
-                    console.error(e.message);
-                }
-            });
-        });
-        req.end();
+    const url = `https://graph.tractive.com/4/user/${accountDetails.uid}/trackable_objects`;
+    const res = await fetch(url, {
+        method: gloOpts.method,
+        headers: gloOpts.headers
     });
+    const data = await res.json();
+    return data;
 }
