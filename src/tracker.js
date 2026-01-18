@@ -1,22 +1,16 @@
-const https = require("https");
-
 /**
  * Get an array of all trackers on the account
  * @returns {Array}
  */
-async function getAllTrackers() {
+export async function getAllTrackers() {
     if(!isAuthenticated()) return console.log('Not authenticated.');
-    return new Promise(function(resolve, reject) {
-        let options = gloOpts;
-        options.path = `/4/user/${accountDetails.uid}/trackers`;
-        const req = https.request(options, function (res) {
-            res.on('data', function(d) {
-                let trackers = JSON.parse(d);
-                resolve(trackers)
-            });
-        });
-        req.end();
+    const url = `https://graph.tractive.com/4/user/${accountDetails.uid}/trackers`;
+    const res = await fetch(url, {
+        method: gloOpts.method,
+        headers: gloOpts.headers
     });
+    const trackers = await res.json();
+    return trackers;
 }
 
 /**
@@ -24,19 +18,15 @@ async function getAllTrackers() {
  * @param {String} trackerID 
  * @returns {Object} Object
  */
-async function getTracker(trackerID) {
+export async function getTracker(trackerID) {
     if(!isAuthenticated()) return console.log('Not authenticated.');
-    return new Promise(function(resolve, reject) {
-        let options = gloOpts;
-        options.path = `/4/tracker/${trackerID}`;
-        const req = https.request(options, function (res) {
-            res.on('data', function(d) {
-                let tracker = JSON.parse(d);
-                resolve(tracker)
-            });
-        });
-        req.end();
+    const url = `https://graph.tractive.com/4/tracker/${trackerID}`;
+    const res = await fetch(url, {
+        method: gloOpts.method,
+        headers: gloOpts.headers
     });
+    const tracker = await res.json();
+    return tracker;
 }
 
 /**
@@ -46,28 +36,17 @@ async function getTracker(trackerID) {
  * @param {Number} to 
  * @returns {Array} Array
  */
-async function getTrackerHistory(trackerID, from, to) {
+export async function getTrackerHistory(trackerID, from, to) {
     if(!isAuthenticated()) return console.log('Not authenticated.');
-    return new Promise(function(resolve, reject) {
-        let calcFrom = typeof from == "object" ? (from.getTime() / 1000).toFixed(0) : from;
-        let calcTo = typeof to == "object"  ? (to.getTime() / 1000).toFixed(0) : to;
-        let options = gloOpts;
-        options.path = `/4/tracker/${encodeURIComponent(trackerID)}/positions?time_from=${encodeURIComponent(calcFrom)}&time_to=${encodeURIComponent(calcTo)}&format=json_segments`;
-        const req = https.request(options, function (res) {
-            res.setEncoding('utf8');
-            let rawData = '';
-            res.on('data', (chunk) => { rawData += chunk; });
-            res.on('end', () => {
-                try {
-                    const parsedData = JSON.parse(rawData);
-                    resolve(parsedData[0]);
-                } catch (e) {
-                    console.error(e.message);
-                }
-            });
-        });
-        req.end();
+    let calcFrom = typeof from == "object" ? (from.getTime() / 1000).toFixed(0) : from;
+    let calcTo = typeof to == "object"  ? (to.getTime() / 1000).toFixed(0) : to;
+    const url = `https://graph.tractive.com/4/tracker/${encodeURIComponent(trackerID)}/positions?time_from=${encodeURIComponent(calcFrom)}&time_to=${encodeURIComponent(calcTo)}&format=json_segments`;
+    const res = await fetch(url, {
+        method: gloOpts.method,
+        headers: gloOpts.headers
     });
+    const parsedData = await res.json();
+    return parsedData[0];
 }
 
 /**
@@ -75,31 +54,26 @@ async function getTrackerHistory(trackerID, from, to) {
  * @param {String} trackerID 
  * @returns {Object} Object
  */
-async function getTrackerLocation(trackerID) {
+export async function getTrackerLocation(trackerID) {
     if(!isAuthenticated()) return console.log('Not authenticated.');
-    return new Promise(function(resolve, reject) {
-        let options = gloOpts;
-        options.path = `/4/device_pos_report/${trackerID}`;
-        const req = https.request(options, function (res) {
-            res.on('data', function(d) {
-                let data = JSON.parse(d);
-                let options = gloOpts;
-                options.path = `/4/platform/geo/address/location?latitude=${encodeURIComponent(data.latlong[0])}&longitude=${encodeURIComponent(data.latlong[1])}`;
-                const req2 = https.request(options, function (res2) {
-                    res2.on('data', function(d2) {
-                        let address = JSON.parse(d2);
-                        data.address = address;
-                        resolve(data)
-                    });
-                    res2.on('error', function(err) {
-                        resolve(data)
-                    });
-                });
-                req2.end();
-            });
-        });
-        req.end();
+    const url = `https://graph.tractive.com/4/device_pos_report/${trackerID}`;
+    const res = await fetch(url, {
+        method: gloOpts.method,
+        headers: gloOpts.headers
     });
+    const data = await res.json();
+    const addressUrl = `https://graph.tractive.com/4/platform/geo/address/location?latitude=${encodeURIComponent(data.latlong[0])}&longitude=${encodeURIComponent(data.latlong[1])}`;
+    try {
+        const addressRes = await fetch(addressUrl, {
+            method: gloOpts.method,
+            headers: gloOpts.headers
+        });
+        const address = await addressRes.json();
+        data.address = address;
+    } catch (err) {
+        // ignore address fetch error
+    }
+    return data;
 }
 
 /**
@@ -107,26 +81,13 @@ async function getTrackerLocation(trackerID) {
  * @param {String} trackerID 
  * @returns {Object} Object
  */
-async function getTrackerHardware(trackerID) {
+export async function getTrackerHardware(trackerID) {
     if(!isAuthenticated()) return console.log('Not authenticated.');
-    return new Promise(function(resolve, reject) {
-        let options = gloOpts;
-        options.path = `/4/device_hw_report/${trackerID}`;
-        const req = https.request(options, function (res) {
-            res.on('data', function(d) {
-                let data = JSON.parse(d);
-                resolve(data)
-            });
-        });
-        req.end();
+    const url = `https://graph.tractive.com/4/device_hw_report/${trackerID}`;
+    const res = await fetch(url, {
+        method: gloOpts.method,
+        headers: gloOpts.headers
     });
-}
-
-module.exports = {
-    getAllTrackers: getAllTrackers,
-    getTracker: getTracker,
-    getTrackerHistory: getTrackerHistory,
-    getTrackerLocation: getTrackerLocation,
-    getTrackerHardware: getTrackerHardware
-
+    const data = await res.json();
+    return data;
 }
