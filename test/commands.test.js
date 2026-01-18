@@ -70,45 +70,33 @@ describe('Commands', () => {
         setGlobalDispatcher(originalDispatcher);
     });
 
-  describe('liveOn', () => {
-    test('should enable live tracking', async () => {
-        const result = await commands.liveOn('tracker-1');
-        assert.deepStrictEqual(result, { status: 'success' });
-    });
+  test('liveOn', async () => {
+      const result = await commands.liveOn('tracker-1');
+      assert.deepStrictEqual(result, { status: 'success' });
   });
 
-  describe('liveOff', () => {
-    test('should disable live tracking', async () => {
-        const result = await commands.liveOff('tracker-1');
-        assert.deepStrictEqual(result, { status: 'success' });
-    });
+  test('liveOff', async () => {
+      const result = await commands.liveOff('tracker-1');
+      assert.deepStrictEqual(result, { status: 'success' });
   });
 
-  describe('LEDOn', () => {
-    test('should turn on LED', async () => {
-        const result = await commands.LEDOn('tracker-1');
-        assert.deepStrictEqual(result, { status: 'success' });
-    });
+  test('LEDOn', async () => {
+      const result = await commands.LEDOn('tracker-1');
+      assert.deepStrictEqual(result, { status: 'success' });
   });
 
-  describe('LEDOff', () => {
-    test('should turn off LED', async () => {
-        const result = await commands.LEDOff('tracker-1');
-        assert.deepStrictEqual(result, { status: 'success' });
-    });
+  test('LEDOff', async () => {
+      const result = await commands.LEDOff('tracker-1');
+      assert.deepStrictEqual(result, { status: 'success' });
   });
 
-  describe('BuzzerOn', () => {
-    test('should turn on buzzer', async () => {
-        const result = await commands.BuzzerOn('tracker-1');
-        assert.deepStrictEqual(result, { status: 'success' });
-    });
+  test('BuzzerOn', async () => {
+      const result = await commands.BuzzerOn('tracker-1');
+      assert.deepStrictEqual(result, { status: 'success' });
   });
 
-  describe('BuzzerOff', () => {
-    test('should turn off buzzer', async () => {
-        const result = await commands.BuzzerOff('tracker-1');
-        assert.deepStrictEqual(result, { status: 'success' });
-    });
+  test('BuzzerOff', async () => {
+      const result = await commands.BuzzerOff('tracker-1');
+      assert.deepStrictEqual(result, { status: 'success' });
   });
 });

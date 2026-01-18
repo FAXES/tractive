@@ -70,38 +70,28 @@ describe('Tracker', () => {
         setGlobalDispatcher(originalDispatcher);
     });
 
-    describe('getAllTrackers', () => {
-        test('should fetch all trackers', async () => {
+    test('getAllTrackers', async () => {
         const result = await tracker.getAllTrackers();
-            assert.deepStrictEqual(result, { mock: 'all trackers' });
+        assert.deepStrictEqual(result, { mock: 'all trackers' });
     });
-  });
 
-  describe('getTracker', () => {
-    test('should fetch a tracker', async () => {
+    test('getTracker', async () => {
         const result = await tracker.getTracker('tracker-1');
         assert.deepStrictEqual(result, { id: 'tracker-1', name: 'Tracker 1' });
     });
-  });
 
-  describe('getTrackerHistory', () => {
-    test('should fetch tracker history', async () => {
+    test('getTrackerHistory', async () => {
         const result = await tracker.getTrackerHistory('tracker-1', 1000, 2000);
         assert.deepStrictEqual(result, { position: 'mock position data' });
     });
-  });
 
-  describe('getTrackerLocation', () => {
-    test('should fetch tracker location', async () => {
+    test('getTrackerLocation', async () => {
         const result = await tracker.getTrackerLocation('tracker-1');
         assert.deepStrictEqual(result, { latlong: [48.8566, 2.3522], address: { address: 'Paris, France' } });
     });
-  });
 
-  describe('getTrackerHardware', () => {
-    test('should fetch tracker hardware info', async () => {
+    test('getTrackerHardware', async () => {
         const result = await tracker.getTrackerHardware('tracker-1');
         assert.deepStrictEqual(result, { battery: 85, signal: 4 });
     });
-  });
 });

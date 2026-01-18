@@ -45,10 +45,8 @@ describe('Pet', () => {
         setGlobalDispatcher(originalDispatcher);
     });
 
-  describe('getPets', () => {
-    test('should fetch all pets', async () => {
-        const result = await pet.getPets();
-        assert.deepStrictEqual(result, [{ id: 'pet-1', name: 'Fluffy', type: 'dog' }]);
-    });
+  test('getPets', async () => {
+    const result = await pet.getPets();
+    assert.deepStrictEqual(result, [{ id: 'pet-1', name: 'Fluffy', type: 'dog' }]);
   });
 });

@@ -55,24 +55,18 @@ describe('Account', () => {
         setGlobalDispatcher(originalDispatcher);
     });
 
-  describe('getAccountInfo', () => {
-    test('should fetch account information', async () => {
-        const result = await account.getAccountInfo();
-        assert.deepStrictEqual(result, { id: 'test-user-id', name: 'Test User' });
-    });
+  test('getAccountInfo', async () => {
+    const result = await account.getAccountInfo();
+    assert.deepStrictEqual(result, { id: 'test-user-id', name: 'Test User' });
   });
 
-  describe('getAccountSubscriptions', () => {
-    test('should fetch account subscriptions', async () => {
-        const result = await account.getAccountSubscriptions();
-        assert.deepStrictEqual(result, [{ id: 'sub-1', status: 'active' }]);
-    });
+  test('getAccountSubscriptions', async () => {
+    const result = await account.getAccountSubscriptions();
+    assert.deepStrictEqual(result, [{ id: 'sub-1', status: 'active' }]);
   });
 
-  describe('getAccountShares', () => {
-    test('should fetch account shares', async () => {
-        const result = await account.getAccountShares();
-        assert.deepStrictEqual(result, [{ id: 'share-1', email: 'friend@example.com' }]);
-    });
+  test('getAccountShares', async () => {
+    const result = await account.getAccountShares();
+    assert.deepStrictEqual(result, [{ id: 'share-1', email: 'friend@example.com' }]);
   });
 });
