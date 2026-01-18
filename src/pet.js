@@ -1,11 +1,11 @@
-const https = require("https");
+import https from 'https';
 
 /**
  * Get a pet and it's data, includes attached tracker, type of animal, and other pet details.
  * @param {String} petID 
  * @returns {Object} Object
  */
-async function getPet(petID) {
+export async function getPet(petID) {
     if(!isAuthenticated()) return console.log('Not authenticated.');
     return new Promise(function(resolve, reject) {
         let options = gloOpts;
@@ -33,7 +33,7 @@ async function getPet(petID) {
  * Get a list of all pets on the account
  * @returns {Array} Array
  */
-async function getPets() {
+export async function getPets() {
     if(!isAuthenticated()) return console.log('Not authenticated.');
     return new Promise(function(resolve, reject) {
         let options = gloOpts;
@@ -53,9 +53,4 @@ async function getPets() {
         });
         req.end();
     });
-}
-
-module.exports = {
-    getPet: getPet,
-    getPets: getPets
 }

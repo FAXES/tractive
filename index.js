@@ -1,14 +1,17 @@
-const https = require("https");
+import https from 'https';
+import * as tAccount from './src/account.js';
+import * as tPet from './src/pet.js';
+import * as tTracker from './src/tracker.js';
+import * as tCommands from './src/commands.js';
+
 const TractiveClient = "6536c228870a3c8857d452e8";
-const tAccount = require('./src/account');
-const tPet = require('./src/pet');
-const tTracker = require('./src/tracker');
-const tCommands = require('./src/commands');
-accountDetails = {
+
+globalThis.accountDetails = {
     email: "",
     password: ""
-}
-gloOpts = {
+};
+
+globalThis.gloOpts = {
     method: "GET",
     hostname: "graph.tractive.com",
     path: ``,
@@ -19,7 +22,7 @@ gloOpts = {
     }
 };
 
-isAuthenticated = function() {
+globalThis.isAuthenticated = function() {
     if(accountDetails?.token) return true;
     return false;
 }
@@ -98,24 +101,30 @@ async function getGeofence(fenceID) {
     });
 }
 
-module.exports = {
-    connect: connect,
-    isAuthenticated: isAuthenticated,
+export default {
+    connect,
+    isAuthenticated,
+    getTrackerGeofences,
+    getGeofence,
+    // Account
     getAccountInfo: tAccount.getAccountInfo,
     getAccountSubscriptions: tAccount.getAccountSubscriptions,
     getAccountSubscription: tAccount.getAccountSubscription,
     getAccountShares: tAccount.getAccountShares,
+    // Pet
     getPets: tPet.getPets,
     getPet: tPet.getPet,
+    // Tracker
     getAllTrackers: tTracker.getAllTrackers,
     getTracker: tTracker.getTracker,
     getTrackerHistory: tTracker.getTrackerHistory,
     getTrackerLocation: tTracker.getTrackerLocation,
     getTrackerHardware: tTracker.getTrackerHardware,
+    // Commands
     liveOn: tCommands.liveOn,
     liveOff: tCommands.liveOff,
     LEDOn: tCommands.LEDOn,
     LEDOff: tCommands.LEDOff,
     buzzerOn: tCommands.BuzzerOn,
     buzzerOff: tCommands.BuzzerOff
-}
+};

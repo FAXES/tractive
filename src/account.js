@@ -1,10 +1,10 @@
-const https = require("https");
+import https from 'https';
 
 /**
  * Gets Tractive account information.
  * @returns {Object} Object
  */
-async function getAccountInfo() {
+export async function getAccountInfo() {
     if(!isAuthenticated()) return console.log('Not authenticated.');
     return new Promise(function(resolve, reject) {
         let options = gloOpts;
@@ -30,7 +30,7 @@ async function getAccountInfo() {
  * Get all account subscriptions
  * @returns {Array} Array
  */
-async function getAccountSubscriptions() {
+export async function getAccountSubscriptions() {
     if(!isAuthenticated()) return console.log('Not authenticated.');
     return new Promise(function(resolve, reject) {
         let options = gloOpts;
@@ -57,7 +57,7 @@ async function getAccountSubscriptions() {
  * @param {String} subscriptionID 
  * @returns {Object} Object
  */
-async function getAccountSubscription(subscriptionID) {
+export async function getAccountSubscription(subscriptionID) {
     if(!isAuthenticated()) return console.log('Not authenticated.');
     return new Promise(function(resolve, reject) {
         let options = gloOpts;
@@ -83,7 +83,7 @@ async function getAccountSubscription(subscriptionID) {
  * Get a list of accounts you share trackers with
  * @returns {Array} Array
  */
-async function getAccountShares() {
+export async function getAccountShares() {
     if(!isAuthenticated()) return console.log('Not authenticated.');
     return new Promise(function(resolve, reject) {
         let options = gloOpts;
@@ -103,12 +103,4 @@ async function getAccountShares() {
         });
         req.end();
     });
-}
-
-
-module.exports = {
-    getAccountInfo: getAccountInfo,
-    getAccountSubscriptions: getAccountSubscriptions,
-    getAccountSubscription: getAccountSubscription,
-    getAccountShares: getAccountShares
 }

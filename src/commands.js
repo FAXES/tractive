@@ -1,11 +1,11 @@
-const https = require("https");
+import https from 'https';
 
 /**
  * Toggle live tracking mode on for a tracker.
  * @param {String} trackerID 
  * @returns {Object} Object
  */
-async function liveOn(trackerID) {
+export async function liveOn(trackerID) {
     if(!isAuthenticated()) return console.log('Not authenticated.');
     return new Promise(function(resolve, reject) {
         let options = gloOpts;
@@ -32,7 +32,7 @@ async function liveOn(trackerID) {
  * @param {String} trackerID 
  * @returns {Object} Object
  */
-async function liveOff(trackerID) {
+export async function liveOff(trackerID) {
     if(!isAuthenticated()) return console.log('Not authenticated.');
     return new Promise(function(resolve, reject) {
         let options = gloOpts;
@@ -60,7 +60,7 @@ async function liveOff(trackerID) {
  * @param {String} trackerID 
  * @returns {Object} Object
  */
-async function LEDOn(trackerID) {
+export async function LEDOn(trackerID) {
     if(!isAuthenticated()) return console.log('Not authenticated.');
     return new Promise(function(resolve, reject) {
         let options = gloOpts;
@@ -87,7 +87,7 @@ async function LEDOn(trackerID) {
  * @param {String} trackerID 
  * @returns {Object} Object
  */
-async function LEDOff(trackerID) {
+export async function LEDOff(trackerID) {
     if(!isAuthenticated()) return console.log('Not authenticated.');
     return new Promise(function(resolve, reject) {
         let options = gloOpts;
@@ -115,7 +115,7 @@ async function LEDOff(trackerID) {
  * @param {String} trackerID 
  * @returns {Object} Object
  */
-async function BuzzerOn(trackerID) {
+export async function BuzzerOn(trackerID) {
     if(!isAuthenticated()) return console.log('Not authenticated.');
     return new Promise(function(resolve, reject) {
         let options = gloOpts;
@@ -142,7 +142,7 @@ async function BuzzerOn(trackerID) {
  * @param {String} trackerID 
  * @returns {Object} Object
  */
-async function BuzzerOff(trackerID) {
+export async function BuzzerOff(trackerID) {
     if(!isAuthenticated()) return console.log('Not authenticated.');
     return new Promise(function(resolve, reject) {
         let options = gloOpts;
@@ -162,13 +162,4 @@ async function BuzzerOff(trackerID) {
         });
         req.end();
     });
-}
-
-module.exports = {
-    liveOn: liveOn,
-    liveOff: liveOff,
-    LEDOn: LEDOn,
-    LEDOff: LEDOff,
-    BuzzerOn: BuzzerOn,
-    BuzzerOff: BuzzerOff
 }

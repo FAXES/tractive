@@ -1,10 +1,10 @@
-const https = require("https");
+import https from 'https';
 
 /**
  * Get an array of all trackers on the account
  * @returns {Array}
  */
-async function getAllTrackers() {
+export async function getAllTrackers() {
     if(!isAuthenticated()) return console.log('Not authenticated.');
     return new Promise(function(resolve, reject) {
         let options = gloOpts;
@@ -24,7 +24,7 @@ async function getAllTrackers() {
  * @param {String} trackerID 
  * @returns {Object} Object
  */
-async function getTracker(trackerID) {
+export async function getTracker(trackerID) {
     if(!isAuthenticated()) return console.log('Not authenticated.');
     return new Promise(function(resolve, reject) {
         let options = gloOpts;
@@ -46,7 +46,7 @@ async function getTracker(trackerID) {
  * @param {Number} to 
  * @returns {Array} Array
  */
-async function getTrackerHistory(trackerID, from, to) {
+export async function getTrackerHistory(trackerID, from, to) {
     if(!isAuthenticated()) return console.log('Not authenticated.');
     return new Promise(function(resolve, reject) {
         let calcFrom = typeof from == "object" ? (from.getTime() / 1000).toFixed(0) : from;
@@ -75,7 +75,7 @@ async function getTrackerHistory(trackerID, from, to) {
  * @param {String} trackerID 
  * @returns {Object} Object
  */
-async function getTrackerLocation(trackerID) {
+export async function getTrackerLocation(trackerID) {
     if(!isAuthenticated()) return console.log('Not authenticated.');
     return new Promise(function(resolve, reject) {
         let options = gloOpts;
@@ -107,7 +107,7 @@ async function getTrackerLocation(trackerID) {
  * @param {String} trackerID 
  * @returns {Object} Object
  */
-async function getTrackerHardware(trackerID) {
+export async function getTrackerHardware(trackerID) {
     if(!isAuthenticated()) return console.log('Not authenticated.');
     return new Promise(function(resolve, reject) {
         let options = gloOpts;
@@ -120,13 +120,4 @@ async function getTrackerHardware(trackerID) {
         });
         req.end();
     });
-}
-
-module.exports = {
-    getAllTrackers: getAllTrackers,
-    getTracker: getTracker,
-    getTrackerHistory: getTrackerHistory,
-    getTrackerLocation: getTrackerLocation,
-    getTrackerHardware: getTrackerHardware
-
 }
