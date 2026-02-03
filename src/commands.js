@@ -1,30 +1,17 @@
-const https = require("https");
-
 /**
  * Toggle live tracking mode on for a tracker.
  * @param {String} trackerID 
  * @returns {Object} Object
  */
-async function liveOn(trackerID) {
+export async function liveOn(trackerID) {
     if(!isAuthenticated()) return console.log('Not authenticated.');
-    return new Promise(function(resolve, reject) {
-        let options = gloOpts;
-        options.path = `/4/tracker/${trackerID}/command/live_tracking/on`;
-        const req = https.request(options, function (res) {
-            res.setEncoding('utf8');
-            let rawData = '';
-            res.on('data', (chunk) => { rawData += chunk; });
-            res.on('end', () => {
-                try {
-                    const parsedData = JSON.parse(rawData);
-                    resolve(parsedData);
-                } catch (e) {
-                    console.error(e.message);
-                }
-            });
-        });
-        req.end();
+    const url = `https://graph.tractive.com/4/tracker/${trackerID}/command/live_tracking/on`;
+    const res = await fetch(url, {
+        method: gloOpts.method,
+        headers: gloOpts.headers
     });
+    const data = await res.json();
+    return data;
 }
 
 /**
@@ -32,26 +19,15 @@ async function liveOn(trackerID) {
  * @param {String} trackerID 
  * @returns {Object} Object
  */
-async function liveOff(trackerID) {
+export async function liveOff(trackerID) {
     if(!isAuthenticated()) return console.log('Not authenticated.');
-    return new Promise(function(resolve, reject) {
-        let options = gloOpts;
-        options.path = `/4/tracker/${trackerID}/command/live_tracking/off`;
-        const req = https.request(options, function (res) {
-            res.setEncoding('utf8');
-            let rawData = '';
-            res.on('data', (chunk) => { rawData += chunk; });
-            res.on('end', () => {
-                try {
-                    const parsedData = JSON.parse(rawData);
-                    resolve(parsedData);
-                } catch (e) {
-                    console.error(e.message);
-                }
-            });
-        });
-        req.end();
+    const url = `https://graph.tractive.com/4/tracker/${trackerID}/command/live_tracking/off`;
+    const res = await fetch(url, {
+        method: gloOpts.method,
+        headers: gloOpts.headers
     });
+    const data = await res.json();
+    return data;
 }
 
 
@@ -60,26 +36,15 @@ async function liveOff(trackerID) {
  * @param {String} trackerID 
  * @returns {Object} Object
  */
-async function LEDOn(trackerID) {
+export async function LEDOn(trackerID) {
     if(!isAuthenticated()) return console.log('Not authenticated.');
-    return new Promise(function(resolve, reject) {
-        let options = gloOpts;
-        options.path = `/4/tracker/${trackerID}/command/led_control/on`;
-        const req = https.request(options, function (res) {
-            res.setEncoding('utf8');
-            let rawData = '';
-            res.on('data', (chunk) => { rawData += chunk; });
-            res.on('end', () => {
-                try {
-                    const parsedData = JSON.parse(rawData);
-                    resolve(parsedData);
-                } catch (e) {
-                    console.error(e.message);
-                }
-            });
-        });
-        req.end();
+    const url = `https://graph.tractive.com/4/tracker/${trackerID}/command/led_control/on`;
+    const res = await fetch(url, {
+        method: gloOpts.method,
+        headers: gloOpts.headers
     });
+    const data = await res.json();
+    return data;
 }
 
 /**
@@ -87,26 +52,15 @@ async function LEDOn(trackerID) {
  * @param {String} trackerID 
  * @returns {Object} Object
  */
-async function LEDOff(trackerID) {
+export async function LEDOff(trackerID) {
     if(!isAuthenticated()) return console.log('Not authenticated.');
-    return new Promise(function(resolve, reject) {
-        let options = gloOpts;
-        options.path = `/4/tracker/${trackerID}/command/led_control/off`;
-        const req = https.request(options, function (res) {
-            res.setEncoding('utf8');
-            let rawData = '';
-            res.on('data', (chunk) => { rawData += chunk; });
-            res.on('end', () => {
-                try {
-                    const parsedData = JSON.parse(rawData);
-                    resolve(parsedData);
-                } catch (e) {
-                    console.error(e.message);
-                }
-            });
-        });
-        req.end();
+    const url = `https://graph.tractive.com/4/tracker/${trackerID}/command/led_control/off`;
+    const res = await fetch(url, {
+        method: gloOpts.method,
+        headers: gloOpts.headers
     });
+    const data = await res.json();
+    return data;
 }
 
 
@@ -115,26 +69,15 @@ async function LEDOff(trackerID) {
  * @param {String} trackerID 
  * @returns {Object} Object
  */
-async function BuzzerOn(trackerID) {
+export async function BuzzerOn(trackerID) {
     if(!isAuthenticated()) return console.log('Not authenticated.');
-    return new Promise(function(resolve, reject) {
-        let options = gloOpts;
-        options.path = `/4/tracker/${trackerID}/command/buzzer_control/on`;
-        const req = https.request(options, function (res) {
-            res.setEncoding('utf8');
-            let rawData = '';
-            res.on('data', (chunk) => { rawData += chunk; });
-            res.on('end', () => {
-                try {
-                    const parsedData = JSON.parse(rawData);
-                    resolve(parsedData);
-                } catch (e) {
-                    console.error(e.message);
-                }
-            });
-        });
-        req.end();
+    const url = `https://graph.tractive.com/4/tracker/${trackerID}/command/buzzer_control/on`;
+    const res = await fetch(url, {
+        method: gloOpts.method,
+        headers: gloOpts.headers
     });
+    const data = await res.json();
+    return data;
 }
 
 /**
@@ -142,33 +85,13 @@ async function BuzzerOn(trackerID) {
  * @param {String} trackerID 
  * @returns {Object} Object
  */
-async function BuzzerOff(trackerID) {
+export async function BuzzerOff(trackerID) {
     if(!isAuthenticated()) return console.log('Not authenticated.');
-    return new Promise(function(resolve, reject) {
-        let options = gloOpts;
-        options.path = `/4/tracker/${trackerID}/command/buzzer_control/off`;
-        const req = https.request(options, function (res) {
-            res.setEncoding('utf8');
-            let rawData = '';
-            res.on('data', (chunk) => { rawData += chunk; });
-            res.on('end', () => {
-                try {
-                    const parsedData = JSON.parse(rawData);
-                    resolve(parsedData);
-                } catch (e) {
-                    console.error(e.message);
-                }
-            });
-        });
-        req.end();
+    const url = `https://graph.tractive.com/4/tracker/${trackerID}/command/buzzer_control/off`;
+    const res = await fetch(url, {
+        method: gloOpts.method,
+        headers: gloOpts.headers
     });
-}
-
-module.exports = {
-    liveOn: liveOn,
-    liveOff: liveOff,
-    LEDOn: LEDOn,
-    LEDOff: LEDOff,
-    BuzzerOn: BuzzerOn,
-    BuzzerOff: BuzzerOff
+    const data = await res.json();
+    return data;
 }
